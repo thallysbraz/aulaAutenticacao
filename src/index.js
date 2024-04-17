@@ -1,19 +1,18 @@
+// src/index.js
 const express = require("express");
 const cors = require("cors");
-const axios = require("axios");
+const userController = require('./controllers/userController');
+const authMiddleware = require('./middleware/authMiddleware');
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 const port = 3000;
 
-app.get("/", async (request, response) => {
-
-})
-
-app.post("/", async (request, response) => {
-
-})
+app.post("/register", userController.register);
+app.post("/login", userController.login);
+app.get("/perfil", authMiddleware, userController.getProfile);
 
 app.listen(port, () => {
-    console.log(`servidor iniciado na porta ${port}`);
+    console.log(`Servidor iniciado na porta ${port}`);
 });
