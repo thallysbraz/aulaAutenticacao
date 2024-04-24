@@ -16,3 +16,6 @@ app.get("/perfil", authMiddleware, userController.getProfile);
 app.listen(port, () => {
     console.log(`Servidor iniciado na porta ${port}`);
 });
+// executar npm install
+
+// executar npm run dev ou node ./src/index.js

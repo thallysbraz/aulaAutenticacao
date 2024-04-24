@@ -14,7 +14,20 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await userService.authenticateUser(email, password);
 
+        if (user) {
+            const token = jwt.sign({ id: user.id, email: user.email }, "secret", { expiresIn: "3h" });
+            res.send({ token });
+        }
+        else {
+            res.status(401).send({ error: "Não autorizado" });
+        }
+    } catch (error) {
+        res.status(500).send({ error: "Falha no login!" });
+    }
 };
 
 const getProfile = async (req, res) => {
